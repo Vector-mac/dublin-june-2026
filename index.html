@@ -1,119 +1,257 @@
-<!doctype html>
+<!--
+  Atlas mobile trip site. Dublin June 2026.
+  Brand: AI-First v1.0.
+  Status: populated. Last updated 2026-04-19.
+-->
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="theme-color" content="#0f172a" />
-<title>Atlas - Dublin, Ireland</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1A1A1A">
+<title>Dublin Trip | June 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
-  :root { --bg: #0b1220; --panel: #111a2e; --ink: #eef2ff; --ink-dim: #a6b0d0; --accent: #7cc3ff; --ok: #5cd391; --radius: 14px; }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font: 16px/1.45 -apple-system, sans-serif; }
-  header { padding: 20px; background: linear-gradient(160deg, #162445, #0b1220); border-bottom: 1px solid #22304f; }
-  .eyebrow { color: var(--ink-dim); font-size: 12px; text-transform: uppercase; }
-  h1 { margin: 4px 0; font-size: 24px; }
-  .dates { color: var(--ink-dim); font-size: 14px; }
-  main { padding: 16px; display: grid; gap: 14px; }
-  .card { background: var(--panel); border: 1px solid #22304f; border-radius: var(--radius); padding: 16px; }
-  .card h2 { margin: 0 0 12px; font-size: 16px; color: var(--accent); }
-  .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 12px; background: #18233c; border: 1px solid #22304f; color: var(--ink-dim); margin: 0 6px 6px 0; }
-  .pill.ok { color: var(--ok); border-color: rgba(92,211,145,.3); }
-  .row { display: grid; grid-template-columns: 70px 1fr; gap: 10px; margin: 10px 0; }
-  .when { color: var(--ink-dim); font-size: 13px; }
-  .what b { display: block; }
-  .what small { color: var(--ink-dim); }
-  footer { padding: 20px; color: var(--ink-dim); font-size: 12px; text-align: center; }
+  :root{--orange:#EE5A1F;--orange-ink:#B7390A;--charcoal:#1A1A1A;--navy:#0F1C2E;--bronze:#B08D57;--white:#FFFFFF;--gray-70:#595959;--gray-50:#8C8C8C;--gray-20:#D9D9D9;--gray-05:#F2F2F2;--status-green:#2F5D3A;--status-amber:#8F6B1C;--status-red:#A32929;--sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--serif:'Source Serif 4',Georgia,'Times New Roman',serif;--radius:10px;--radius-lg:14px;--shadow-sm:0 1px 2px rgba(26,26,26,.06);--shadow-md:0 2px 10px rgba(26,26,26,.08);--max-w:640px}
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{font-family:var(--sans);font-size:16px;line-height:1.55;color:var(--charcoal);background:var(--gray-05);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  img,svg{display:block;max-width:100%}
+  a{color:var(--orange-ink);text-decoration:underline;text-underline-offset:2px}a:hover{color:var(--orange)}
+  .page{max-width:var(--max-w);margin:0 auto;padding:0 0 48px;background:var(--gray-05)}
+  .site-header{position:relative;color:var(--white);background:var(--charcoal);padding:28px 20px 32px;overflow:hidden}
+  .site-header .neural{position:absolute;inset:0;width:100%;height:100%;opacity:.22;pointer-events:none}
+  .site-header .brand-rule{display:inline-block;width:36px;height:3px;background:var(--orange);margin-bottom:14px}
+  .site-header h1{font-weight:800;letter-spacing:-.01em;font-size:28px;line-height:1.1;margin:0 0 6px}
+  .site-header .sub{font-size:14px;color:rgba(255,255,255,.78);margin:0;letter-spacing:.01em}
+  .site-header .controls{position:absolute;top:20px;right:20px;display:flex;gap:8px;align-items:center}
+  .status-pill{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.35);color:var(--white)}
+  .status-pill.green{background:var(--status-green);border-color:transparent}.status-pill.amber{background:var(--status-amber);border-color:transparent}.status-pill.red{background:var(--status-red);border-color:transparent}
+  .refresh-btn{font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:var(--orange);color:#fff;border:0;cursor:pointer}.refresh-btn:hover{background:var(--orange-ink)}
+  .glance{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--white);border-bottom:1px solid var(--gray-20)}
+  .glance .cell{padding:12px 10px;text-align:center;border-right:1px solid var(--gray-20)}.glance .cell:last-child{border-right:0}
+  .glance .k{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-70);margin-bottom:3px}
+  .glance .v{font-size:14px;font-weight:700;color:var(--charcoal)}
+  section{padding:20px}
+  .section-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-70);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+  .section-label::before{content:"";width:18px;height:2px;background:var(--orange)}
+  .section-heading{font-weight:700;font-size:20px;letter-spacing:-.01em;color:var(--charcoal);margin:0 0 14px}
+  .card{background:var(--white);border:1px solid var(--gray-20);border-radius:var(--radius-lg);padding:16px 16px 14px;box-shadow:var(--shadow-sm);margin-bottom:12px}
+  .card:last-child{margin-bottom:0}.card h3{font-size:16px;font-weight:700;margin:0 0 6px;color:var(--charcoal)}
+  .card .meta{font-size:12px;color:var(--gray-70);letter-spacing:.02em;margin-bottom:8px}.card p{margin:0 0 8px;color:var(--charcoal)}.card p:last-child{margin-bottom:0}
+  .weather{background:var(--navy);color:var(--white);border:0;padding:18px;border-radius:var(--radius-lg);display:flex;gap:14px;align-items:center;margin:0}
+  .weather .icon{font-size:28px;line-height:1;flex-shrink:0}.weather .txt{flex:1}
+  .weather .hdr{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-bottom:2px}
+  .weather .hi{font-size:16px;font-weight:700;margin-bottom:2px}.weather .note{font-size:13px;color:rgba(255,255,255,.85)}
+  .update{background:var(--white);border:1px solid var(--gray-20);border-left:4px solid var(--orange);border-radius:8px;padding:12px 14px;margin-bottom:10px}.update:last-child{margin-bottom:0}
+  .update .ts{font-size:12px;font-weight:700;color:var(--orange-ink);margin-bottom:4px;display:block;letter-spacing:.02em}.update p{margin:0;font-size:14px;color:var(--charcoal)}
+  .stack-list{list-style:none;padding:0;margin:0;background:var(--white);border:1px solid var(--gray-20);border-radius:var(--radius-lg);overflow:hidden}
+  .stack-list li{padding:12px 14px;border-bottom:1px solid var(--gray-20);font-size:14px;color:var(--charcoal);display:flex;gap:10px;align-items:flex-start}.stack-list li:last-child{border-bottom:0}
+  .stack-list li .marker{color:var(--orange);font-weight:700;font-size:14px;flex-shrink:0;width:16px}.stack-list li strong{font-weight:700}
+  .pro-tip{background:var(--white);border:1px solid var(--gray-20);border-left:4px solid var(--bronze);border-radius:8px;padding:12px 14px;font-size:14px;color:var(--charcoal)}
+  .pro-tip strong{font-weight:700}
+  .scaffold{background:var(--white);border:1px dashed var(--gray-50);border-radius:var(--radius-lg);padding:14px 16px;font-size:14px;color:var(--gray-70)}
+  .scaffold strong{color:var(--charcoal)}
+  .feature-card{background:var(--charcoal);color:var(--white);border-radius:var(--radius-lg);padding:20px;border-left:4px solid var(--orange)}
+  .feature-card .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);font-weight:700;margin-bottom:8px}
+  .feature-card h3{font-size:22px;font-weight:800;letter-spacing:-.01em;margin:0 0 6px;color:var(--white)}
+  .feature-card .when{font-size:13px;color:rgba(255,255,255,.8);margin-bottom:14px}
+  .resto{position:relative}
+  .resto .top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .resto h3{margin:0;color:var(--orange-ink);font-size:16px;font-weight:700}
+  .resto .rank{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-70);font-weight:700}
+  .resto .tags{font-size:12px;color:var(--gray-70);margin:4px 0 8px;letter-spacing:.01em}
+  .resto .desc{font-size:14px;color:var(--charcoal);margin:0 0 10px}
+  .top-pick-banner{display:inline-block;background:var(--orange);color:var(--white);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:4px;margin-bottom:8px}
+  .transit .card .route{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--charcoal);margin-bottom:10px}
+  .transit .card ul{padding-left:18px;margin:0 0 10px}
+  .transit .card ul li{font-size:14px;margin-bottom:4px;color:var(--charcoal)}
+  .transit .card ul li:last-child{margin-bottom:0}
+  footer{padding:24px 20px 8px;text-align:center;color:var(--gray-70);font-size:12px;letter-spacing:.02em}
+  footer .sig{font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:11px;color:var(--charcoal);margin-top:6px}
+  footer .sig .dot{color:var(--orange)}
 </style>
 </head>
 <body>
-<header>
-  <div class="eyebrow">Atlas Trip Guide • International</div>
-  <h1>Dublin, Ireland</h1>
-  <div class="dates">June 2026 • Dates TBD</div>
-</header>
+<main class="page">
 
-<main>
-  <div class="card">
-    <h2>Status</h2>
-    <span class="pill">Planning Phase</span>
-    <span class="pill">Dates Pending</span>
+  <header class="site-header">
+    <svg class="neural" viewBox="0 0 640 220" preserveAspectRatio="none" aria-hidden="true">
+      <g stroke="#ffffff" stroke-width="1" fill="#ffffff">
+        <line x1="60" y1="40" x2="180" y2="90"/><line x1="180" y1="90" x2="300" y2="50"/>
+        <line x1="300" y1="50" x2="420" y2="110"/><line x1="420" y1="110" x2="560" y2="70"/>
+        <line x1="180" y1="90" x2="240" y2="170"/><line x1="240" y1="170" x2="360" y2="160"/>
+        <line x1="360" y1="160" x2="420" y2="110"/><line x1="360" y1="160" x2="520" y2="180"/>
+        <line x1="520" y1="180" x2="560" y2="70"/><line x1="60" y1="40" x2="120" y2="140"/>
+        <line x1="120" y1="140" x2="240" y2="170"/>
+        <circle cx="60" cy="40" r="5"/><circle cx="180" cy="90" r="7"/><circle cx="300" cy="50" r="4"/>
+        <circle cx="420" cy="110" r="8"/><circle cx="560" cy="70" r="5"/><circle cx="240" cy="170" r="6"/>
+        <circle cx="360" cy="160" r="5"/><circle cx="520" cy="180" r="4"/><circle cx="120" cy="140" r="4"/>
+      </g>
+    </svg>
+    <span class="brand-rule" aria-hidden="true"></span>
+    <h1>Dublin Trip</h1>
+    <p class="sub">June 2026 &middot; Jeff (business)</p>
+    <div class="controls">
+      <span class="status-pill amber">Building</span>
+      <button type="button" class="refresh-btn" onclick="location.reload()">Refresh</button>
+    </div>
+  </header>
+
+  <div class="glance">
+    <div class="cell"><span class="k">Weather</span><span class="v">55-65°F</span></div>
+    <div class="cell"><span class="k">Local time</span><span class="v">IST</span></div>
+    <div class="cell"><span class="k">Currency</span><span class="v">EUR</span></div>
+    <div class="cell"><span class="k">Days out</span><span class="v">TBD</span></div>
   </div>
 
-  <div class="card">
-    <h2>Trip Overview</h2>
-    Business trip to Dublin, Ireland.<br>
-    <br>
-    <span class="pill">International</span>
-    <span class="pill">Solo Travel</span>
-  </div>
-
-  <div class="card">
-    <h2>Flights</h2>
-    <div class="row">
-      <div class="when">TBD</div>
-      <div class="what">
-        <b>Outbound & Return</b>
-        <small>MCI → DUB • Pending booking</small>
+  <section>
+    <p class="section-label">Forecast</p>
+    <div class="weather card">
+      <span class="icon" aria-hidden="true">&#127783;&#65039;</span>
+      <div class="txt">
+        <div class="hdr">June baseline</div>
+        <div class="hi">55-65°F, cloudy with rain likely</div>
+        <div class="note">Soft rain common. Pack a rain shell and waterproof walking shoes.</div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="card">
-    <h2>Hotel</h2>
-    <b>Not yet booked</b><br>
-    <small>Preference: Marriott portfolio near city center</small>
-  </div>
+  <section>
+    <p class="section-label">Atlas Updates</p>
+    <article class="update">
+      <span class="ts">April 19, 2026</span>
+      <p>No new travel emails. Dates still unconfirmed. Advisories unchanged. Atlas will populate full itinerary once TripIt confirmations arrive.</p>
+    </article>
+    <article class="update">
+      <span class="ts">April 18, 2026</span>
+      <p>Trip page staged with new AI-First design. Safety brief and starter dining shortlist loaded. Awaiting confirmed dates to build day-by-day itinerary.</p>
+    </article>
+  </section>
 
-  <div class="card">
-    <h2>Restaurant Recommendations</h2>
-    <div class="row">
-      <div class="when">Steak</div>
-      <div class="what">
-        <b>The Hawksmoor</b>
-        <small>Irish beef, excellent reputation</small>
+  <section class="transit">
+    <p class="section-label">Airport Transit</p>
+    <article class="card">
+      <div class="route">
+        <span aria-hidden="true">&#9992;&#65039;</span>
+        <span>MCI to Dublin (DUB)</span>
       </div>
-    </div>
-    <div class="row">
-      <div class="when">Irish</div>
-      <div class="what">
-        <b>The Woollen Mills</b>
-        <small>Modern Irish, great atmosphere</small>
+      <div class="meta">International flight &middot; Pending confirmation</div>
+      <ul>
+        <li>Awaiting TripIt parse for exact flight details</li>
+        <li>U.S. Preclearance at DUB makes arrival smoother</li>
+        <li>Allow 2.5 hours for international departure</li>
+      </ul>
+    </article>
+    <article class="card">
+      <div class="route">
+        <span aria-hidden="true">&#128652;</span>
+        <span>DUB Airport to City Centre</span>
       </div>
-    </div>
-    <div class="row">
-      <div class="when">Coffee</div>
-      <div class="what">
-        <b>3FE Coffee</b>
-        <small>Local roaster, multiple locations</small>
-      </div>
-    </div>
-  </div>
+      <div class="meta">Aircoach/Dublin Express &middot; EUR 8-12</div>
+      <ul>
+        <li>Aircoach or Dublin Express bus (~30-35 minutes)</li>
+        <li>Alternative: Taxi (~EUR 25-35)</li>
+        <li>Leap Card recommended for multi-day transit</li>
+      </ul>
+    </article>
+  </section>
 
-  <div class="card">
-    <h2>International Essentials</h2>
-    • <b>Currency:</b> EUR (same as Frankfurt)<br>
-    • <b>Plug:</b> Type G (UK/Ireland style)<br>
-    • <b>Passport:</b> Check 6-month validity<br>
-    • <b>Visa:</b> US citizens - no visa required<br>
-    • <b>Emergency:</b> 112
-  </div>
+  <section>
+    <p class="section-label">Itinerary</p>
+    <h2 class="section-heading">Day by day</h2>
+    <div class="scaffold"><strong>Atlas is building this.</strong> Day blocks appear here once flights and lodging are confirmed. Dublin dinner on a weekend needs 5-7 days lead time for popular spots.</div>
+  </section>
 
-  <div class="card">
-    <h2>Weather</h2>
-    <div class="row">
-      <div class="when">June</div>
-      <div class="what">
-        <b>55-65°F • Mild & Green</b>
-        <small>Pack layers, light rain jacket</small>
+  <section>
+    <p class="section-label">Events</p>
+    <h2 class="section-heading">What is in town</h2>
+    <div class="scaffold"><strong>Atlas is scanning.</strong> Concerts from Jeff's watchlist at 3Arena, Vicar Street, Olympia Theatre, and Marlay Park will list here. Atlas also scans for Trad sessions at The Cobblestone and O'Donoghue's.</div>
+  </section>
+
+  <section>
+    <p class="section-label">Tip</p>
+    <div class="pro-tip"><strong>Pro tip:</strong> Jeff does not drink, so Temple Bar is a pass for atmosphere on weekend nights. Atlas ranks Dublin's pub picks for food, music, and history, with non-drink-forward options named alongside.</div>
+  </section>
+
+  <section>
+    <p class="section-label">Dining</p>
+    <h2 class="section-heading">Ranked picks</h2>
+    <article class="card resto">
+      <span class="top-pick-banner">Top pick</span>
+      <div class="top-row">
+        <h3>Etto</h3>
+        <span class="rank">#1</span>
       </div>
-    </div>
-  </div>
+      <div class="tags">Merrion Row &middot; Small plates &middot; Wine list</div>
+      <p class="desc">Small plates with a strong wine list. Reservation required. Ranks first for the combination of exceptional food and a grown-up atmosphere that suits a business dinner.</p>
+    </article>
+    <article class="card resto">
+      <div class="top-row">
+        <h3>The Long Hall</h3>
+        <span class="rank">#2</span>
+      </div>
+      <div class="tags">Pub &middot; Atmosphere &middot; Historic</div>
+      <p class="desc">Beautiful Victorian pub with excellent atmosphere. Ranks below Etto because it is more drink-forward, though the history and architecture are worth the visit.</p>
+    </article>
+    <article class="card resto">
+      <div class="top-row">
+        <h3>Chapter One by Mickael Viljanen</h3>
+        <span class="rank">#3</span>
+      </div>
+      <div class="tags">Fine dining &middot; Splurge &middot; Special occasion</div>
+      <p class="desc">Two Michelin stars. Worth considering for a special business dinner or if the company is paying. Ranks third due to price and formality, not quality.</p>
+    </article>
+  </section>
+
+  <section>
+    <p class="section-label">Coffee Spots</p>
+    <ul class="stack-list">
+      <li><span class="marker">&#9679;</span><span><strong>3FE (Grand Canal Street)</strong> — Local favorite for flat white, consistently excellent</span></li>
+      <li><span class="marker">&#9679;</span><span><strong>Vice Coffee Inc.</strong> — City core location, solid third-wave option</span></li>
+      <li><span class="marker">&#9679;</span><span><strong>Starbucks</strong> — Reliable fallback if local spots are out of range</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="section-label">Alt Activities</p>
+    <h2 class="section-heading">Half-day options</h2>
+    <ul class="stack-list">
+      <li><span class="marker">&#9679;</span><span><strong>Kilmainham Gaol</strong> — Book ahead. Powerful Irish history.</span></li>
+      <li><span class="marker">&#9679;</span><span><strong>National Museum of Ireland</strong> — Free admission, excellent archaeology collection.</span></li>
+      <li><span class="marker">&#9679;</span><span><strong>Howth Cliff Walk</strong> — Escape the city. Dramatic coastal views, easy train access.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="section-label">Safety &amp; Advisories</p>
+    <ul class="stack-list">
+      <li><span class="marker">&#9679;</span><span><strong>State Department:</strong> Level 1 - Exercise normal precautions. Ireland is generally safe. Petty crime (pickpocketing, purse snatching) is common in tourist areas. Stay aware in crowded spots.</span></li>
+      <li><span class="marker">&#9679;</span><span><strong>CDC:</strong> No travel health notices for Ireland at this time.</span></li>
+      <li><span class="marker">&#9679;</span><span><strong>Weather:</strong> June averages 55-65°F, frequently cloudy with rain likely on some days.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="section-label">Local Tips</p>
+    <ul class="stack-list">
+      <li><span class="marker">&#9679;</span><span><strong>Passport:</strong> Ireland does not require 6 months past return, but Atlas keeps the 6-month doctrine and will re-check at T-14.</span></li>
+      <li><span class="marker">&#9679;</span><span><strong>Plug:</strong> Type G (UK/Irish three-pin), 230V. The Continental Europlug will not fit.</span></li>
+      <li><span class="marker">&#9679;</span><span><strong>Visa:</strong> Not required for U.S. citizens. ETIAS not required for Ireland (non-Schengen).</span></li>
+      <li><span class="marker">&#9679;</span><span><strong>Currency:</strong> EUR. Credit card works almost everywhere. Pull small cash for pub tips and market stalls.</span></li>
+      <li><span class="marker">&#9679;</span><span><strong>Transit:</strong> Leap Card covers Luas, Dublin Bus, and DART. Most of central Dublin is walkable.</span></li>
+      <li><span class="marker">&#9679;</span><span><strong>Tipping:</strong> 10-15% for sit-down restaurants. Round up at pubs.</span></li>
+      <li><span class="marker">&#9679;</span><span><strong>Phrase:</strong> "Slainte" (slawn-cheh) for "cheers" at the pub. English is the working language.</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <div>Last updated: April 19, 2026</div>
+    <div>Tap Refresh for latest info.</div>
+    <div class="sig">Atlas<span class="dot">.</span> for Jeff</div>
+  </footer>
+
 </main>
-
-<footer>
-  <b>Atlas</b> — Jeff's Travel Concierge<br>
-  Updated: April 17, 2026
-</footer>
 </body>
 </html>
